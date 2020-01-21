@@ -9,6 +9,13 @@ proprietary_terms_replacement = ["it", "ability", "system", "security", "systems
 
 new_text = ''
 
+def censor_word(word1, word2, text):
+    if word1 in text:
+        text = text.replace(word1, word2)
+    return text
+
+print(censor_word("learning algorithms", "discovery mechanisms", email_one))
+
 def censor_list(lst1, lst2, text):
     new_text = ''
     uppercase_lst1 = []
@@ -24,8 +31,6 @@ def censor_list(lst1, lst2, text):
             if uppercase_lst1[i] in text:
                 text = text.replace(uppercase_lst1[i], uppercase_lst2[i])
 
-    print(uppercase_lst1)
-    print(uppercase_lst2)
     new_text = text
     return new_text
 
