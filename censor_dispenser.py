@@ -4,19 +4,29 @@ email_two = open("email_two.txt", "r").read()
 email_three = open("email_three.txt", "r").read()
 email_four = open("email_four.txt", "r").read()
 
-proprietary_terms = ["she", "personality matrix", "sense of self", "self-preservation", "learning algorithms", "her", "herself"]
-proprietary_terms_replacement = ["it", "ability", "system", "security", "systems", "it\'s","itself"]
+proprietary_terms = ["she", "personality matrix", "sense of self", "self-preservation", "learning algorithms", "herself", "her" ]
+proprietary_terms_replacement = ["it", "ability", "system", "security", "systems", "itself", "it\'s"]
 
 new_text = ''
 
 def censor_list(lst1, lst2, text):
+    new_text = ''
+    uppercase_lst1 = []
+    uppercase_lst2 = []
+
+    for i in range(len(lst1)):
+            uppercase_lst1.append(' '.join(w.capitalize() for w in lst1[i].split()))
+            uppercase_lst2.append(' '.join(w.capitalize() for w in lst2[i].split()))  
     
     for i in range(len(lst1)):
-        print(i)
         if lst1[i] in text:
-            new_text = text.replace(lst1[i], lst2[i])
+            text = text.replace(lst1[i], lst2[i])
+            if uppercase_lst1[i] in text:
+                text = text.replace(uppercase_lst1[i], uppercase_lst2[i])
 
-
+    print(uppercase_lst1)
+    print(uppercase_lst2)
+    new_text = text
     return new_text
 
 test = censor_list(proprietary_terms, proprietary_terms_replacement, email_two)
