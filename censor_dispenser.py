@@ -10,12 +10,32 @@ negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "ala
 less_negative_words = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 
 
-new_text = ''
+def clean_text(text):
+    new_text_list = []
+    new_text = ''
+    new_text_list = text.split(' ')
+    new_text_list_cleaned = []
+
+    for i in new_text_list: 
+        i = i.strip()
+        if i == '':
+            continue
+        elif '\n\n\n\n\n' in i:
+            new_text_list_cleaned.append(i.replace('\n\n\n\n\n', '\n\n'))
+            new_text = ' '.join(new_text_list_cleaned)
+        else:
+            new_text_list_cleaned.append(i)
+            new_text = ' '.join(new_text_list_cleaned)
+            
+    return new_text
+
 
 def censor_word(word1, word2, text):
+    new_text = ''
     if word1 in text:
         text = text.replace(word1, word2)
-    return text
+    new_text = clean_text(text)
+    return new_text
 
 #print(censor_word("learning algorithms", "discovery mechanisms", email_one))
 
@@ -35,16 +55,12 @@ def censor_list(lst1, lst2, text):
                 text = text.replace(uppercase_lst1[i], uppercase_lst2[i])
 
     new_text = text
+    new_text = clean_text(new_text)
     return new_text
 
 censored_data_from_censor_list = censor_list(proprietary_terms, proprietary_terms_replacement, email_three)
 
-def clean_text(text):
-    new_text_list = []
-    new_text = ''
-    new_text_list = [text.split(' ')]
-
-def censor_word_occured_twice(lst1, lst2, text):
+def censor_if_word_occured_twice(lst1, lst2, text):
     #new_text = ''
     w_count = []
     for i in range(len(lst1)):
@@ -55,10 +71,10 @@ def censor_word_occured_twice(lst1, lst2, text):
     
     new_text = censor_list(proprietary_terms, proprietary_terms_replacement, text)
 
-
+    new_text = clean_text(new_text)
     return new_text
 
   
-test_3 = censor_word_occured_twice(negative_words, less_negative_words, email_three)
+test_3 = censor_if_word_occured_twice(negative_words, less_negative_words, email_three)
 
-#print(test_3)
+print(test_3)
