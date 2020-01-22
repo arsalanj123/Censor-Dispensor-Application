@@ -15,18 +15,23 @@ def clean_text(text):
     new_text = ''
     new_text_list = text.split(' ')
     new_text_list_cleaned = []
+    replaced_text_list_cleaned = []  
+    replaced_new_text = ''
 
     for i in new_text_list: 
         i = i.strip()
         if i == '':
             continue
         elif '\n\n\n\n\n' in i:
-            new_text_list_cleaned.append(i.replace('\n\n\n\n\n', '\n\n'))
-            new_text = ' '.join(new_text_list_cleaned)
+            replaced_text_list_cleaned.append(i.replace('\n\n\n\n\n', '\n\n'))    
         else:
-            new_text_list_cleaned.append(i)
-            new_text = ' '.join(new_text_list_cleaned)
-            
+            replaced_text_list_cleaned.append(i)
+
+    replaced_new_text = ' '.join(replaced_text_list_cleaned)
+
+    if ' . ' in replaced_new_text:
+        new_text = replaced_new_text.replace(" . ", '. ')
+        new_text = replaced_new_text.replace(" .", '.')
     return new_text
 
 
@@ -77,4 +82,32 @@ def censor_if_word_occured_twice(lst1, lst2, text):
   
 test_3 = censor_if_word_occured_twice(negative_words, less_negative_words, email_three)
 
-print(test_3)
+#print(test_3)
+
+#
+def censor_one_before_and_one_after_terms_in_lists(removal_lst1, removal_lst2, text):
+    
+    removal_list = text.split(' ')
+    new_list = []
+    removal_lst1_counter = 0
+    removal_lst2_counter = 0
+    cleaned_text = ''
+
+    for i in range(len(removal_lst1)):
+        if removal_lst1[i] in text:
+            text = text.replace(removal_lst1[i], '')
+            removal_lst1_counter += 1
+
+    for i in range(len(removal_lst2)):
+        if removal_lst2[i] in text:
+            text = text.replace(removal_lst2[i], '')
+            removal_lst2_counter += 1
+
+    cleaned_text = clean_text(text)
+
+    print(removal_lst1_counter)
+    print(removal_lst2_counter)    
+    new_text = cleaned_text
+    return new_text
+
+print(censor_one_before_and_one_after_terms_in_lists(proprietary_terms, negative_words, email_four))
