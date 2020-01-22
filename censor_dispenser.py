@@ -14,7 +14,6 @@ def clean_text(text):
     new_text_list = []
     new_text = ''
     new_text_list = text.split(' ')
-    new_text_list_cleaned = []
     replaced_text_list_cleaned = []  
     replaced_new_text = ''
 
@@ -86,13 +85,11 @@ test_3 = censor_if_word_occured_twice(negative_words, less_negative_words, email
 
 #
 def censor_one_before_and_one_after_terms_in_lists(removal_lst1, removal_lst2, text):
-    
-    removal_list = text.split(' ')
-    new_list = []
+
     removal_lst1_counter = 0
     removal_lst2_counter = 0
     cleaned_text = ''
-
+    
     for i in range(len(removal_lst1)):
         if removal_lst1[i] in text:
             text = text.replace(removal_lst1[i], '')
@@ -105,8 +102,6 @@ def censor_one_before_and_one_after_terms_in_lists(removal_lst1, removal_lst2, t
 
     cleaned_text = clean_text(text)
 
-    print(removal_lst1_counter)
-    print(removal_lst2_counter)    
     new_text = cleaned_text
     return new_text
 
