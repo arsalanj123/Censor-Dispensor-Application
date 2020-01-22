@@ -6,6 +6,9 @@ email_four = open("email_four.txt", "r").read()
 
 proprietary_terms = ["she", "personality matrix", "sense of self", "self-preservation", "learning algorithms", "herself", "her" ]
 proprietary_terms_replacement = ["it", "ability", "system", "security", "systems", "itself", "it\'s"]
+negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "alarmed", "out of control", "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressed", "concerning", "horrible", "horribly", "questionable"]
+less_negative_words = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+
 
 new_text = ''
 
@@ -14,7 +17,7 @@ def censor_word(word1, word2, text):
         text = text.replace(word1, word2)
     return text
 
-print(censor_word("learning algorithms", "discovery mechanisms", email_one))
+#print(censor_word("learning algorithms", "discovery mechanisms", email_one))
 
 def censor_list(lst1, lst2, text):
     new_text = ''
@@ -34,6 +37,28 @@ def censor_list(lst1, lst2, text):
     new_text = text
     return new_text
 
-test = censor_list(proprietary_terms, proprietary_terms_replacement, email_two)
+censored_data_from_censor_list = censor_list(proprietary_terms, proprietary_terms_replacement, email_three)
 
-print(test)
+def clean_text(text):
+    new_text_list = []
+    new_text = ''
+    new_text_list = [text.split(' ')]
+
+def censor_word_occured_twice(lst1, lst2, text):
+    #new_text = ''
+    w_count = []
+    for i in range(len(lst1)):
+        if lst1[i] in text:
+            w_count = text.count(lst1[i])
+            if w_count > 2:
+                text = text.replace(lst1[i], lst2[i])
+    
+    new_text = censor_list(proprietary_terms, proprietary_terms_replacement, text)
+
+
+    return new_text
+
+  
+test_3 = censor_word_occured_twice(negative_words, less_negative_words, email_three)
+
+#print(test_3)
